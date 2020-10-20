@@ -1,0 +1,40 @@
+<html>
+	<head>
+		<title>This is my simple web page</title>
+	</head>
+
+	<body>
+		<h2>Login Page</h2>
+		<form action="home.html" method="get">
+		<label>FName</label>
+		<input type="text" name="fname"/><br/>
+		<label>LName</label>
+		<input type="text" name="lname"/><br/>
+		<label>Gender</label>
+		<input type="radio" name="gender" value="male"/> Male
+		<input type="radio" name="gender" value="female"/> Female
+		<br/>
+		<label>Hobbies</label>
+		<input type="checkbox" name="hh1" value="Reading"/> Reading
+		<input type="checkbox" name="hh2" value="Playing"/> Playing
+		<input type="checkbox" name="hh3" value="Watching Cricket"/> Watching Cricket
+		<br/>
+		<label>City</label>
+		<select name="city">
+			<option>--Select City--</option>
+			<option value="Bangalore">Bangalore</option>
+			<option value="Pune">Pune</option>
+			<option value="Mumbia">Mumbia</option>
+			<option value="Delhi">Delhi</option>	
+		</select>
+		<br/>
+		<label>Address</label>
+		<textarea name="address" cols="20" rows="5">
+			
+		</textarea>
+		<br/>
+		<input type="submit" value="Create Profile!"/>
+		<input type="reset"/>
+		</form>
+	</body>
+</html>

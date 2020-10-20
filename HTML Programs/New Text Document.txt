@@ -1,0 +1,12 @@
+<html>
+	<head>
+		<title>This is my simple web page</title>
+	</head>
+
+	<body>
+		<h3>Table Tag </h3>
+		<table>
+
+		</table>		
+	</body>
+</html>
