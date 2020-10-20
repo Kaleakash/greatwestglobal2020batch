@@ -1,0 +1,5 @@
+id,name,salary
+100,Raj,12000
+101,Seeta,14000
+102,Meeta,16000
+13,Veeta,18000
