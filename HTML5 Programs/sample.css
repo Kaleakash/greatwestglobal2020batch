@@ -1,0 +1,15 @@
+#info{
+    background-color: cadetblue;
+    color: white;
+
+}
+p {
+    color: cyan;
+    text-align: center;
+    font-family: cursive;
+}
+
+.bb{
+    background-image: url("./google.png");
+    background-repeat: no-repeat;
+}

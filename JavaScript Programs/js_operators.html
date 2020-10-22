@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var a=10;
+        var b=3;
+        document.write("Arithmetic Operation<br/>")
+        document.write("<br/>Addition "+(a+b));
+        document.write("<br/>Substration "+(a-b));
+        document.write("<br/>Multiplication "+(a*b));
+        document.write("<br/>Division "+(a/b));
+        document.write("<br/>Remainder "+(a%b));
+        var msg;
+        document.write("<br/><br/>Data type of variables<br/>")
+        document.write("<br/>"+typeof(msg));
+        msg=10;
+        document.write("<br/>"+typeof(msg));
+        msg=10.10;
+        document.write("<br/>"+typeof(msg));
+        msg="Ajay";
+        document.write("<br/>"+typeof(msg));
+        msg=true
+        document.write("<br/>"+typeof(msg));
+        msg = new Date();
+        document.write("<br/>"+typeof(msg));
+        var m=10;
+        var n="10";
+        document.write("<br/><br/>== <br>");
+        document.write(m==n)    // check the value 
+        document.write("<br/>=== <br>");
+        document.write(m===n)   // check value as well as their data types. 
+        document.write("<br/>");
+        document.write("<br/>Increment and Decrement<br/>")
+        var n=10;
+        m=n;
+        document.write("<br/>The value of m is "+m)
+       //++n;
+        m = ++n;    //increment and store 
+        document.write("<br/>The value of m is "+m)
+       // n++;
+        m = n++;    //store or assign and increment 
+        document.write("<br/>The value of m is "+m)
+        document.write("<br/>")
+        var a=100;
+        var b=20;
+        var result = a>b?"a is largest":"b is largest";
+       document.write(result); 
+    </script>
+</body>
+</html>
