@@ -1,0 +1,15 @@
+div {
+    border: 1px solid red;
+    width: 100px;
+    height: 200px;
+}
+#d1{
+    position: relative;
+    top: 0px;
+    left: 0px;
+}
+#d2 {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}

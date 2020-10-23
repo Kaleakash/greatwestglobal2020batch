@@ -1,0 +1,50 @@
+div{
+    border: 2px solid red;
+    width: 100px;
+    height: 100px;
+    float: left;
+    padding: 20px;
+    /*margin: 10px;*/
+    border-radius: 70px;
+   
+}
+/*
+Rotate properties 
+#d1{
+    transform: rotateX(70deg);
+}
+
+#d2{
+    transform: rotateY(70deg);
+}
+
+#d3{
+    transform: rotateZ(70deg);
+}
+*/
+/*#d1 {
+    animation-name: myanim;
+    animation-duration: 10s;
+    animation-iteration-count: 5;
+}*/
+#d2 {
+    animation-name: myanim1;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+    position: relative;
+}
+/*
+@keyframes myanim {
+    0%{background-color: red;}
+    20%{background-color: green;}
+    40%{background-color:blue}
+    60%{background-color:coral}
+    80%{background-color:darkgreen}
+    100%{background-color:darkorchid}
+}*/
+@keyframes myanim1 {
+  /*  0% {margin-top: 0px;}*/
+    0%{margin-left: 10px;}
+  /*  100% {margin-top: 200px}*/
+    10%{margin-right: 500px;}
+}
