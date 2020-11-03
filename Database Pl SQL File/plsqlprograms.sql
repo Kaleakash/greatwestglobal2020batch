@@ -405,3 +405,353 @@ end;
 
 --FirstName,DeparName,City using Records with rowtype 
 
+
+
+
+-- First Exception example 
+set serveroutput on;
+declare 
+a number(2):=10;
+result number(2);
+begin 
+result := a/0;
+dbms_output.put_line('Result is '||result);
+exception 
+  when others then 
+  dbms_output.put_line('Exception generated');
+end;
+
+
+-- Second Exception example withe error code and message 
+set serveroutput on;
+declare 
+a number(2):=10;
+result number(2);
+begin 
+result := a/0;
+dbms_output.put_line('Result is '||result);
+exception 
+  when others then 
+  dbms_output.put_line('Exception generated');
+  dbms_output.put_line(SQLCODE);
+  dbms_output.put_line(SQLERRM);
+end;
+
+-- Zero_divide exception 
+
+set serveroutput on;
+declare 
+a number(2):=10;
+result number(2);
+v_name varchar2(10);
+begin 
+result := a/1;
+dbms_output.put_line('Result is '||result);
+select first_name into v_name from employees where employee_id=1111;
+dbms_output.put_line('First name is '||v_name);
+--insert into product values(100,'Abc',10000,21);
+--dbms_output.put_line('Record inserted');
+exception 
+  when zero_divide then 
+  dbms_output.put_line('Divided by zero');
+  when too_many_rows then 
+  dbms_output.put_line('to many recods found');
+  when no_data_found then 
+  dbms_output.put_line('no data present');
+  when others then 
+  dbms_output.put_line('to many recods found');
+  dbms_output.put_line(SQLCODE);
+  dbms_output.put_line(SQLERRM);
+end;
+
+-- Pre-defined error but user-defined name
+set serveroutput on;
+declare 
+dup_rec exception; -- created the variable of type exception 
+foreign_key_exception exception;
+pragma exception_init(dup_rec,-1); -- register that exception using pre-defined procedure 
+pragma exception_init(foreign_key_exception,-02291);
+begin
+  --insert into trainer values(1,'Ravi','Java');
+  --dbms_output.put_line('REcord inserted');
+  insert into student values(1,'Seeta',21,2);
+  dbms_output.put_line('Record inserted successfully');
+exception 
+  when dup_rec then 
+  dbms_output.put_line('Primay key exception - record already present');
+  when foreign_key_exception then 
+  dbms_output.put_line('foreign key exception - record must present in primary - trainer table');
+  when others then 
+  dbms_output.put_line('Generic Exception');
+  dbms_output.put_line(SQLCODE);
+end;
+
+--Foreign key error code and create user-defined name for FK Exception 
+
+select * from trainer;
+select * from student;
+insert into student values(1,'Seeta',21,2);
+
+
+
+
+-- user-defined or custom exception 
+set serveroutput on;
+declare 
+a number(2):=10;
+b number(2):=50;
+my_exc exception;
+pragma exception_init(my_exc,-20001);
+begin 
+  if a >b then 
+  raise my_exc;
+  else 
+--  dbms_output.put_line('No Exception');
+   raise_application_error(-20002,' value of b is > a'); -- call pre-defined procedure to throw the exception depending upon the conditions. 
+  end if;
+exception 
+  when my_exc then 
+  dbms_output.put_line('User defined exception generated');
+    dbms_output.put_line(SQLCODE);
+  when others then 
+  dbms_output.put_line('Generic');
+    dbms_output.put_line(SQLCODE);
+end;
+
+-- user-defined or custom exception 
+set serveroutput on;
+declare 
+a number(2):=10;
+b number(2):=50;
+begin 
+  if a >b then 
+  dbms_output.put_line('Yes');
+  else 
+   raise_application_error(-20002,' value of b is > a'); -- call pre-defined procedure to throw the exception depending upon the conditions. 
+  end if;
+end;
+
+set serveroutput on;
+begin 
+delete from employees where employee_id=12345;
+  if sql%found then
+    dbms_output.put_line('Record deleted successfully');
+  else 
+    dbms_output.put_line('Record not deleted');
+  end if;
+end;
+
+
+-- try with user-defined with sql%found, sql%notfound and sql%rowcount (number)
+
+--Explicit or user-defined cursor example 
+set serveroutput on;
+declare 
+cursor emp_cur is select * from employees;
+begin 
+dbms_output.put_line('Cursor Example');
+  open emp_cur;
+ if emp_cur%isopen then
+ dbms_output.put_line('Cursor open');
+ else 
+ dbms_output.put_line('Cursor not open');
+ end if;
+end;
+
+
+--Explicit or user-defined cursor example 
+set serveroutput on;
+declare 
+cursor emp_cur is select * from employees;
+emp_rec employees%rowtype;    -- please check this code while working on 2nd question create the record with help of cursorName with rowtype
+begin 
+dbms_output.put_line('Cursor Example');
+  open emp_cur;
+ fetch emp_cur into emp_rec;
+ dbms_output.put_line('Employee id is '||emp_rec.employee_id||' employee name is ' || emp_rec.first_name || ' Employee salary is ' ||emp_rec.salary);
+  fetch emp_cur into emp_rec;
+ dbms_output.put_line('Employee id is '||emp_rec.employee_id||' employee name is ' || emp_rec.first_name || ' Employee salary is ' ||emp_rec.salary);
+ close emp_cur;
+end;
+
+
+-- try to display all records using cursor using loop till end 
+
+
+-- try to display first_name,department_name, city using cursor 
+
+set serveroutput on;
+declare 
+cursor emp_dept_cur is select emp.first_name,dept.department_name from employees emp, departments dept where emp.department_id=dept.department_id;
+emp_dept_rec emp_dept_cur%rowtype;    -- please check this code while working on 2nd question create the record with help of cursorName with rowtype
+begin 
+dbms_output.put_line('Cursor Example');
+  open emp_dept_cur;
+    fetch emp_dept_cur into emp_dept_rec;
+ dbms_output.put_line('First name is '|| emp_dept_rec.first_name||'Department Name is '|| emp_dept_rec.department_name);
+ close emp_dept_cur;
+end;
+
+select emp.first_name,dept.department_name from employees emp, departments dept where emp.department_id=dept.department_id;
+
+
+-- passig two parameter in in mode 
+
+create or replace procedure p1(n1 in number,n2 in number) 
+as 
+add number(10);
+begin 
+add := n1+n2;
+dbms_output.put_line('Sum is '||add);
+end p1;
+
+drop procedure p1;
+
+--call the procedure from another block 
+begin 
+p1(10,20);   -- calling the procedure 
+end;
+
+exec p1();    --calling the procedure 
+
+-- Create one procedure to store records in project or any table id,name,salary or pid,pname,price etc 
+
+create or replace procedure addNumber(a in number, b in number, add out number)   -- procedure can return more than value using out parameter 
+as 
+begin 
+add := a+b;
+end addNumber;
+
+declare 
+result number(10);
+begin 
+addNumber(100,200,result);
+dbms_output.put_line('Sum of two number is '||result);
+end;
+
+--- Pass Employee id as in get City Name as out  
+
+
+create or replace procedure changeValue(a in out number) 
+as 
+begin 
+a := a+100;
+end changeValue;
+
+set serveroutput on;
+declare 
+num number(3):=100;
+begin 
+dbms_output.put_line(num);
+changeValue(num);
+dbms_output.put_line(num);
+end;
+
+
+create or replace function sayHello(name in varchar) 
+return VARCHAR
+as 
+msg varchar(50);
+begin 
+msg:='welcome '||name;
+return msg;
+end sayHello;
+
+
+select sayHello('Ravi') from dual;
+
+select sayHello(first_name) from employees;
+
+create table empinfo(empid int primary key,name varchar(10), salary float);
+
+
+create table empinfo_track(trackId int primary key,dateinfo date);
+
+--create sequence track_seq
+
+create or replace trigger product_history 
+before 
+insert 
+on 
+empinfo
+for each row 
+begin 
+
+insert into empinfo_track values(track_seq.nextval,sysdate);
+end product_history;
+
+select * from empinfo;
+
+insert into empinfo values(1,'Raj',12000);
+insert into empinfo values(2,'Ravi',14000);
+insert into empinfo values(3,'Ramesh',16000);
+insert into empinfo values(4,'Rajesh',18000);
+
+select * from empinfo_track;
+
+select to_char(dateinfo,'HH:MI:SS') from empinfo_track;
+
+
+
+
+drop table product;
+
+create table product(pid int primary key,pname varchar2(10), price float);
+
+create table product_transaction_details(pid int, pname varchar2(10), oldPrice float, newPrice float);
+
+
+create or replace trigger product_transaction 
+after
+update 
+on 
+product 
+for each row 
+begin 
+
+insert into product_transaction_details values(:old.pid,:old.pname,:old.price,:new.price);
+
+end product_transaction;
+
+
+insert into product values(1,'TV',110000);
+insert into product values(2,'Laptop',160000);
+insert into product values(3,'Mobile',95000);
+
+select * from product_transaction_details;
+select * from product;
+
+update product set price = price - 30000 where pid=1;
+update product set price = price - 15000 where pid=2;
+update product set price = price + 2000 where pid=3;
+update product set price = price - 30000 where pid=1;
+
+-- declaration part 
+create or replace package mypack 
+as 
+procedure p1(n1 in number);
+procedure p2(n1 in number, n2 in number); 
+end mypack;
+
+--implementation part 
+create or replace package body mypack 
+as 
+procedure p1(n1 in number)
+as 
+begin 
+  dbms_output.put_line('This is 1 parameter procedure');
+end p1;
+
+procedure p2(n1 in number, n2 in number) 
+as 
+begin 
+   dbms_output.put_line('This is 2 parameter procedure');
+end p2;
+
+end mypack;
+
+set serveroutput on;
+begin 
+mypack.p1(100);
+mypack.p2(1,2);
+end;
