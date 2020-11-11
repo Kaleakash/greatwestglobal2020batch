@@ -1,20 +1,23 @@
-class A {
-	void dis1() {
-	System.out.println("A class method");
-	}
-}
-class B extends A{
-	void dis2() {	
-	System.out.println("B class method");
-	}
-}
-
 class Test {
-	public static void main(String args[]) {
-	A obj1 = new A();
-	B obj2 = new B();
-	obj1.dis1();
-	obj2.dis2();	
-	obj2.dis1();
+	public static void main(String args[]) {	
+	System.out.println("Hi");
+	int a=10;
+	int b=1;
+	int abc[]={1,2,3,4,5};
+		try{
+		int res = a/b;		//new ArithmeticException();
+		System.out.println("Result is "+res);
+		int res1 = 10/abc[4];
+		System.out.println("Result is "+res1);
+		}catch(ArithmeticException e) {
+		System.out.println(e.toString());
+		}catch(ArrayIndexOutOfBoundsException e) {
+		System.out.println(e.toString());
+		}catch(Exception e){
+		System.out.println(e.toString());
+		}
+	System.out.println("Bye..");
+	System.out.println("Bye..");
+	System.out.println("Bye..");
 	}
 }
