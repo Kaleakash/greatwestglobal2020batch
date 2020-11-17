@@ -1,24 +1,18 @@
 package service;
 
 import bean.Product;
+import dao.ProductDao;
 
 public class ProductService {
-	Product prod[]=new Product[10];
-	static int flag =0;
+	ProductDao pd = new ProductDao();
 	public int addProduct(Product pp) {
-		prod[flag]=pp;
-		flag++;
-		return 1;
+						if(pp.getSalary()>500) {	
+						int res = pd.addProduct(pp);
+						return res;
+						}else {
+							return 0;
+						}
 	}
 	
-	public int addMoreProducts(Product pp[]) {
-			for(int i=0;i<pp.length;i++) {
-				prod[flag]=pp[i];
-				flag++;
-			}
-		return 1;
-	}
-	public Product[] getAllProducts() {
-		return prod;
-	}
+	
 }
