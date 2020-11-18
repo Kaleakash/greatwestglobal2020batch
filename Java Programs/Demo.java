@@ -1,24 +1,21 @@
-import java.util.*;
+interface Operation {
+	int add(int x, int y);
+}
 class Demo {
 	public static void main(String args[]) {
-	Scanner obj = new Scanner(System.in);
-	System.out.println("How many number do you want store\n");
-	int n = obj.nextInt();
-	int num[]=new int[n];		//like malloc
-	System.out.println("Enter the number one by one");
-	for(int i=0;i<n;i++) {
-		num[i]=obj.nextInt();
-	}
+	Operation op1 = (x,y)->x+y;
+	System.out.println(op1.add(10,20));
+	
+	Operation op2 = (a,b)->a+b;
+	System.out.println(op2.add(100,200));
+	
+	Operation op3 = (int x,int y)->x+y;
+	System.out.println(op3.add(101,202));
 
-	for(int i=0;i<n;i++) {
-		if(num[i]>20) {
-			num[i]=num[i]-5;
-		}else {
-			num[i]=num[i]+5;
-		}
-	}
-	for(int i=0;i<n;i++) {
-		System.out.println(num[i]);
-	}
+	Operation op4 = (a,b)->{
+		int sum = a+b;
+		return sum;
+	};
+	System.out.println(op4.add(111,222));
 	}
 }
