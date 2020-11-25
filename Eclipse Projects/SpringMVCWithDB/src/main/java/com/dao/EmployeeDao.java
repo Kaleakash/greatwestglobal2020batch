@@ -38,4 +38,61 @@ public class EmployeeDao {
 		}
 		return listOfRec;
 	}
+	
+	public Employee getEmployeeById(int id) {
+		try {
+			con = dataSource.getConnection();				// getting the connection with help of DataSource using application.properties file 
+			pstmt = con.prepareStatement("select * from employee where empid=?");
+			pstmt.setInt(1, id);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				Employee emp = new Employee();
+				emp.setEmpId(rs.getInt(1));
+				emp.setName(rs.getString(2));
+				emp.setSalary(rs.getFloat(3));
+				return emp;
+			}
+		}catch (Exception e) {
+			
+		}
+		return null;
+	}
+	
+	public int storeEmployeeRecord(Employee emp) {
+		try {
+			con = dataSource.getConnection();				// getting the connection with help of DataSource using application.properties file 
+			pstmt = con.prepareStatement("insert into employee values(?,?,?)");
+			pstmt.setInt(1, emp.getEmpId());
+			pstmt.setString(2, emp.getName());
+			pstmt.setFloat(3, emp.getSalary());
+			return pstmt.executeUpdate();			//if success
+		}catch (Exception e) {
+			return 0;											//failure 
+		}
+	}
+	
+	public int updateEmployeeDetails(Employee emp) {
+		try {
+			con = dataSource.getConnection();				// getting the connection with help of DataSource using application.properties file 
+			pstmt = con.prepareStatement("update employee set salary = salary + ? where empId=?");
+			pstmt.setFloat(1, emp.getSalary());
+			pstmt.setInt(2, emp.getEmpId());
+			return pstmt.executeUpdate();			//if success
+		}catch (Exception e) {
+			return 0;											//failure 
+		}
+	}
+	
+	
+	
+	public int deleteEmployeeById(int empId) {
+		try {
+			con = dataSource.getConnection();				// getting the connection with help of DataSource using application.properties file 
+			pstmt = con.prepareStatement("delete from employee where empId=?");
+			pstmt.setInt(1, empId);
+			return pstmt.executeUpdate();			//if success
+		}catch (Exception e) {
+			return 0;											//failure 
+		}
+	}
 }

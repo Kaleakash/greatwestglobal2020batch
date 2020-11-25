@@ -17,4 +17,32 @@ public class EmployeeService {
 	public List<Employee> getAllEmployee() {
 		return employeeDao.getAllEmployeeDetails();
 	}
+	
+	public Employee getEmployeeById(int id) {
+		return employeeDao.getEmployeeById(id);
+	}
+	
+	public String storeEmployeeDetails(Employee emp) {
+		if(employeeDao.storeEmployeeRecord(emp)>0) {
+			return "Record stored successfully";
+		}else {
+			return "Record didn't store";
+		}
+	}
+	
+	public String updateEmployeeDetails(Employee emp) {
+		if(employeeDao.updateEmployeeDetails(emp)>0) {
+			return "Record updated successfully";
+		}else {
+			return "Record didn't update";
+		}
+	}
+	
+	public String deleteEmployeeById(int empId) {
+		if(employeeDao.deleteEmployeeById(empId)>0) {
+			return "Record deleted successfully";
+		}else {
+			return "Record didn't delete";
+		}
+	}
 }
