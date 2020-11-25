@@ -95,4 +95,17 @@ public class EmployeeDao {
 			return 0;											//failure 
 		}
 	}
+	
+	
+	public int getCount(String tableName) {
+		try {
+			con = dataSource.getConnection();				// getting the connection with help of DataSource using application.properties file 
+			pstmt = con.prepareStatement("select count(*) from "+tableName);
+			rs = pstmt.executeQuery();
+			rs.next();
+			return rs.getInt(1);
+		}catch (Exception e) {
+			return 0;											//failure 
+		}
+	}
 }
