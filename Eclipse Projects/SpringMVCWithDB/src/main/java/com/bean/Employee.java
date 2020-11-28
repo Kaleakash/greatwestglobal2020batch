@@ -9,7 +9,7 @@ import javax.persistence.Table;
 @Table(name="employee")
 public class Employee {
 @Id											// @Id annotation on that column with primary key.
-@Column(name="id")
+@Column(name="emp_id")
 private int empId;
 private String name;
 private float salary;
