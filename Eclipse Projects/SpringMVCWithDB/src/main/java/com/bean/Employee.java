@@ -1,6 +1,15 @@
 package com.bean;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity									// mandatory 
+@Table(name="employee")
 public class Employee {
+@Id											// @Id annotation on that column with primary key.
+@Column(name="id")
 private int empId;
 private String name;
 private float salary;

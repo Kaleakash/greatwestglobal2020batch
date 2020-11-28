@@ -7,15 +7,19 @@ import org.springframework.stereotype.Service;
 
 import com.bean.Employee;
 import com.dao.EmployeeDao;
+import com.dao.EmployeeOrm;
 
 @Service																// @Service layer annotation 
 public class EmployeeService {
 
 	@Autowired
 	EmployeeDao employeeDao;
+	@Autowired
+	EmployeeOrm employeeOrm;
 	
 	public List<Employee> getAllEmployee() {
-		return employeeDao.getAllEmployeeDetails();
+	//	return employeeDao.getAllEmployeeDetails();
+		return employeeOrm.getAllEmployee();
 	}
 	
 	public Employee getEmployeeById(int id) {
