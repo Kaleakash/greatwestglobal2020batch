@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import com.bean.Employee;
 import com.service.EmployeeService;
 
 @RestController
+@CrossOrigin					//CrossOrigin policy 
 public class EmployeeController {
 
 	@Autowired
@@ -32,11 +34,13 @@ public class EmployeeController {
 	}
 	@GetMapping(value = "getEmpById/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
 	public Employee getEmployeeById(@PathVariable("id") int id) {
+		System.out.println("id is "+id);
 		return employeeService.getEmployeeById(id);
 	}
 	
 	@PostMapping(value = "storeEmployee")
 	public String storeEmployee(@RequestBody Employee emp) {
+		System.out.println("Employee Records "+emp);
 		return employeeService.storeEmployeeDetails(emp);
 	}
 	

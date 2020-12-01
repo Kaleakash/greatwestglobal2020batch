@@ -42,7 +42,7 @@ public class EmployeeDao {
 	public Employee getEmployeeById(int id) {
 		try {
 			con = dataSource.getConnection();				// getting the connection with help of DataSource using application.properties file 
-			pstmt = con.prepareStatement("select * from employee where empid=?");
+			pstmt = con.prepareStatement("select * from employee where emp_id=?");
 			pstmt.setInt(1, id);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
@@ -53,7 +53,7 @@ public class EmployeeDao {
 				return emp;
 			}
 		}catch (Exception e) {
-			
+			System.out.println("in Dao Id is "+e);
 		}
 		return null;
 	}
