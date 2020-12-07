@@ -9,6 +9,9 @@ export class AppComponent {
   title = 'angular-demo';
   name:string="Raj Deep";
   age:number =21;
+  dis() {
+    
+  }
 }
 
 /*
